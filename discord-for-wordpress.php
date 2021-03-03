@@ -47,7 +47,6 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
         if($dcWidget == "nodata"){
             $Content = "Can't Read widget data";
         }else{
-            //$Content = '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
 
             /*function makeList(){
                 $userList = $dcWidget->members;
@@ -59,7 +58,6 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
 
                 return $output;
             }*/
-
 
             switch ($dcWidget->type) {
                 case 'button':
@@ -82,12 +80,6 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
     }else{
         $Content = "Error, no data Set!!";
     }
-
-    /*$Content = "
-    <div class=\"twe_Discord\" srv-id=\"".$widged_atts['id']."\" t=\"".$widged_atts['t']."\">
-        <p>Loading..</p>
-    </div>
-    ";*/
 
     return $Content;
 }
