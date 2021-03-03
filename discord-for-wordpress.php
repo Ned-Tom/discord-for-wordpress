@@ -47,7 +47,37 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
         if($dcWidget == "nodata"){
             $Content = "Can't Read widget data";
         }else{
-            $Content = '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
+            //$Content = '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
+
+            /*function makeList(){
+                $userList = $dcWidget->members;
+                $output = "<ul>"
+                foreach ($userList as $value) {
+                    $output .= '<li>'.$value->username.'</li>';
+                }
+                $output .= '</ul>';
+
+                return $output;
+            }*/
+
+
+            switch ($dcWidget->type) {
+                case 'button':
+                    $Content = '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
+                    break;
+                case 'oplayers':
+                    $Content = $dcWidget->presence_count;
+                    break;
+                /*case 'list':
+                    makeList();
+                    break;
+                case 'joinlist':
+                    $Content = '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>'.makeList();
+                    break;*/
+                default:
+                    $Content = "Not type Defined!";
+            }
+
         }
     }else{
         $Content = "Error, no data Set!!";
