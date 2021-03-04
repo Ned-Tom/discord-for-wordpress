@@ -5,9 +5,11 @@
  * Description: Simple Discord widgets for Wordpress
  * Version: 0.0.1
  * Text Domain: dfwp
- * Author: Ned_Tpm
+ * Author: Ned_Tom
  * Author URI: https://craftblock.one
 */
+
+$devMode = true;
 
 // add styles
 // > stylesheets
@@ -20,6 +22,22 @@ add_action('wp_enqueue_scripts','dfwpStyles');
 
 // add shorcodes
 // > Loder functions
+
+
+function testmeeeee(){
+    return "some test data";
+};
+
+function dfwpmakeList($data){
+    //$userList = $dcWidget->members;
+    $output = "<ul>";
+    foreach ($data as $value) {
+        $output .= '<li>'.$value->username.'</li>';
+    }
+
+    return $output.'</ul>';
+}
+
 function dfwpShortCode($atts = [], $content = null, $tag = '') {
     // normalize attribute keys, lowercase
     $atts = array_change_key_case((array)$atts, CASE_LOWER);
@@ -32,12 +50,12 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
     ], $atts, $tag);
 
     // proces discord data
-    $dcWidget = NULL;
+    $apisrv = 'https://discord.com'; // for development purpes, change to proxy.
 
     try {
         $dcWidget = json_decode(
-            file_get_contents('https://discord.com/api/guilds/'.$widged_atts['id'].'/widget.json')
-        );
+            file_get_contents($apisrv.'/api/guilds/'.$widged_atts['id'].'/widget.json')
+        );        
     } catch (Exception $e) {
         //echo 'Caught exception: ',  $e->getMessage(), "\n";
         $dcWidget = "nodata";
@@ -47,49 +65,36 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
         if($dcWidget == "nodata"){
             $Content = "Can't Read widget data";
         }else{
-            //$Content = '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
 
-            /*function makeList(){
-                $userList = $dcWidget->members;
-                $output = "<ul>"
-                foreach ($userList as $value) {
-                    $output .= '<li>'.$value->username.'</li>';
-                }
-                $output .= '</ul>';
+            $Content = 'Type: '.$widged_atts['type'].'</br>';
 
-                return $output;
-            }*/
-
-
-            switch ($dcWidget->type) {
+            switch ($widged_atts['type']) {
                 case 'button':
-                    $Content = '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
+                    $Content .= '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
                     break;
                 case 'oplayers':
-                    $Content = $dcWidget->presence_count;
+                    $Content .= $dcWidget->presence_count;
                     break;
-                /*case 'list':
-                    makeList();
+                case 'list':
+                    $Content .= dfwpmakeList($dcWidget->members); 
+                    //$Content .= 'test';
                     break;
                 case 'joinlist':
-                    $Content = '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>'.makeList();
-                    break;*/
+                    $Content .= '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>'.dfwpmakeList($dcWidget->members);
+                    //$Content .= testmeeeee();
+                    break;
                 default:
-                    $Content = "Not type Defined!";
+                    $Content .= "No type Defined!";
             }
+
 
         }
     }else{
         $Content = "Error, no data Set!!";
     }
 
-    /*$Content = "
-    <div class=\"twe_Discord\" srv-id=\"".$widged_atts['id']."\" t=\"".$widged_atts['t']."\">
-        <p>Loading..</p>
-    </div>
-    ";*/
 
-    return $Content;
+    return '<div class="dfwp">'.$Content.'</div>';
 }
 
 // > register shorcodes
