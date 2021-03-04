@@ -22,8 +22,6 @@ add_action('wp_enqueue_scripts','dfwpStyles');
 
 // add shorcodes
 // > Loder functions
-
-
 function testmeeeee(){
     return "some test data";
 };
@@ -65,10 +63,10 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
         if($dcWidget == "nodata"){
             $Content = "Can't Read widget data";
         }else{
-
             $Content = 'Type: '.$widged_atts['type'].'</br>';
 
             switch ($widged_atts['type']) {
+
                 case 'button':
                     $Content .= '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
                     break;
@@ -93,12 +91,10 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
         $Content = "Error, no data Set!!";
     }
 
-
     return '<div class="dfwp">'.$Content.'</div>';
 }
 
 // > register shorcodes
 add_shortcode('dfwp', 'dfwpShortCode');
-
 
 ?>
