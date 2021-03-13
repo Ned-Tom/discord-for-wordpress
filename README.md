@@ -14,14 +14,15 @@ Discord Integration for WordPress
 
 ## ToDo
 
-- [x] implement shortcodes
+- [x] implement short codes
   - [x] Join button
   - [x] Online Players
   - [x] Player list 
   - [x] Player list whit join button
-- [ ] basic styling
-  - [ ] lists
-  - [ ] buttons
+- [x] basic styling
+  - [x] lists
+  - [x] buttons
+- [ ] Make plugin translatable
 - [ ] remove pre installed bugs
 
 ## Development
