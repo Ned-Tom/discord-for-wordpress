@@ -27,7 +27,17 @@ Discord Integration for WordPress
   - [x] lists
   - [x] buttons
 - [ ] Make plugin translatable
+- [ ] clean up code
+- [ ] add dark and light theme
 - [ ] remove pre installed bugs
+
+### Thinking about
+
+- [ ]  color customization
+- [ ]  Wordpress blocks
+- [ ]  custom image in background list
+- [ ]  list customization
+- [ ]  branding
 
 ## Development
 Compile sass command
