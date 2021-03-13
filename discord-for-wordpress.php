@@ -56,7 +56,7 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
     $m = new Mustache_Engine(array(
         'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/tpl'),
     ));
-    
+
     // normalize attribute keys, lowercase
     $atts = array_change_key_case((array)$atts, CASE_LOWER);
 
@@ -84,6 +84,10 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
             return "Can't Read widget data";
         }else{
             //$Content = 'Type: '.$widged_atts['type'].'</br>';
+            //$widgetData = (array) $dcWidget; 
+            //$widgetData['imgdr'] = dirname(__FILE__).'/logo';
+            //$dcWidget->imgdr = dirname(__FILE__).'/logo';
+            $dcWidget->imgdr = plugins_url('/img',__FILE__);
             switch ($widged_atts['type']) {
 
                 case 'button':
