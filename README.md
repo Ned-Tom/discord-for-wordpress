@@ -20,9 +20,20 @@ Discord Integration for WordPress
   - [x] Player list 
   - [x] Player list whit join button
 - [ ] basic styling
+  - [ ] lists
+  - [ ] buttons
 - [ ] remove pre installed bugs
 
+## Development
 
+Compile sass command
+```Shell
+sass --watch dev/dfwp-style.scss:css/dfwp-style.css
+```
+include php libs
+```Shell
+composer install
+```
 
 ## Suggestions or Issues?
 
