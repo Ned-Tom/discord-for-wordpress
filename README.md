@@ -1,19 +1,23 @@
 # Discord for WordPress
 Discord Integration for WordPress
-
+> Unofficial widget but whit respect for the discord guidelines
 
 ## Usage
 - Instal and activate plugin
 - add shotcode in text.
 
 ## Shortcodes
+
+![preview](preview.png)
+
 - Join button : [dfwp id="<discord server id>" type="button"]
 - Online Players : [dfwp id="<discord server id>" type="oplayers"]
 - Player list : [dfwp id="<discord server id>" type="list"]
 - Player list whit join button : [dfwp id="<discord server id>" type="joinlist"]
 
-## ToDo
+*`Replace "<discord server id>" whit your server id`*
 
+## ToDo
 - [x] implement short codes
   - [x] Join button
   - [x] Online Players
@@ -26,7 +30,6 @@ Discord Integration for WordPress
 - [ ] remove pre installed bugs
 
 ## Development
-
 Compile sass command
 ```Shell
 sass --watch dev/dfwp-style.scss:css/dfwp-style.css
@@ -37,7 +40,6 @@ composer install
 ```
 
 ## Suggestions or Issues?
-
 - Add a feature request on the GitHub issues page
 - Notify me for bugs "Yes Please"
 - something missing here ??, let me know.
