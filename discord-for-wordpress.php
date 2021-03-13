@@ -9,7 +9,23 @@
  * Author URI: https://craftblock.one
 */
 
-$devMode = true;
+function dfwpconf($funcdata){
+    if(file_exists(
+            dirname(__FILE__).'/dfwp-conf.php'
+    )){
+        $conf = include(dirname(__FILE__).'/dfwp-conf.php');
+        //$conf['apisrv'] = 'https://discord.com';
+        //die($conf['apisrv']);
+    }else{
+        //$conf = array('apisrv' => 'https://discord.com');
+        //die('Missing config');
+        $conf['apisrv'] = 'https://discord.com';
+    }
+
+    //if($funcdata == 'apisrv'){
+        return $conf[$funcdata];
+    //}
+}
 
 // add styles
 // > stylesheets
@@ -37,6 +53,7 @@ function dfwpmakeList($data){
 }
 
 function dfwpShortCode($atts = [], $content = null, $tag = '') {
+    //$conf['apisrv'] = 'https://discord.com';
     // normalize attribute keys, lowercase
     $atts = array_change_key_case((array)$atts, CASE_LOWER);
 
@@ -47,17 +64,23 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
         'skin' => 'basic'
     ], $atts, $tag);
 
-    // proces discord data
-    $apisrv = 'https://discord.com'; // for development purpes, change to proxy.
+    // proces discord data // for production use : https://discord.com
+    //$apisrv = 'http://localhost'; // for development purpes, change to proxy.
+    //$apisrv = $conf['apisrv'];
+    //$apisrv = dfwpconf('apisrv');
 
     try {
         $dcWidget = json_decode(
-            file_get_contents($apisrv.'/api/guilds/'.$widged_atts['id'].'/widget.json')
+            //file_get_contents($apisrv.'/api/guilds/'.$widged_atts['id'].'/widget.json')
+            file_get_contents(dfwpconf('apisrv').'/api/guilds/'.$widged_atts['id'].'/widget.json')
         );        
     } catch (Exception $e) {
         //echo 'Caught exception: ',  $e->getMessage(), "\n";
         $dcWidget = "nodata";
+        die('no widget data!');
     }
+
+    //$Content = json_encode($dcWidget);
 
     if($dcWidget != NULL){
         if($dcWidget == "nodata"){
@@ -88,7 +111,7 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
 
         }
     }else{
-        $Content = "Error, no data Set!!";
+        $Content .= "Error, no data Set!!";
     }
 
     return '<div class="dfwp">'.$Content.'</div>';
