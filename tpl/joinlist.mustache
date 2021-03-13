@@ -1,7 +1,24 @@
 <p>Join List</p>
-<a href="{{instant_invite}}">Join {{name}}</a>
-<ul>
-{{# members }}
-  <li>{{ username }}</li>
-{{/ members }}
-</ul>
+<div class="dfwpList" style="
+background-image: url({{imgdr}}/db9fd9dac08621e31b06609781c8851c.png),
+url({{imgdr}}/1c7d080332a1c9778182bc19c2f407bc.png);    
+">
+  <div class="dfwptop">
+    <img src="{{imgdr}}/full-white.svg" alt="">
+  </div>  
+  <ul>
+  {{# members }}
+    <li>
+      <div>
+        <img src="{{avatar_url}}" alt="">
+        <div class="dfwpovl {{status}}"></div>
+      </div>{{ username }}      
+    </li>
+  {{/ members }}
+  </ul>
+
+  <div class="dfwple">
+    <a href="{{instant_invite}}">Connect</a>
+  </div>
+  
+</div>
