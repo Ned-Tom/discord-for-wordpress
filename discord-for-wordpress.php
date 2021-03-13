@@ -9,6 +9,9 @@
  * Author URI: https://craftblock.one
 */
 
+require 'vendor/autoload.php';
+Mustache_Autoloader::register();
+
 function dfwpconf($funcdata){
     if(file_exists(
             dirname(__FILE__).'/dfwp-conf.php'
@@ -49,6 +52,11 @@ function dfwpmakeList($data){
 }
 
 function dfwpShortCode($atts = [], $content = null, $tag = '') {
+
+    $m = new Mustache_Engine(array(
+        'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/tpl'),
+    ));
+    
     // normalize attribute keys, lowercase
     $atts = array_change_key_case((array)$atts, CASE_LOWER);
 
@@ -66,37 +74,44 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
         );        
     } catch (Exception $e) {
         $dcWidget = "nodata";
-        die('no widget data!');
+        //die('no widget data!');
     }
 
     // generate selected widget
     if($dcWidget != NULL){
         if($dcWidget == "nodata"){
-            $Content = "Can't Read widget data";
+            //$Content = "Can't Read widget data";
+            return "Can't Read widget data";
         }else{
-            $Content = 'Type: '.$widged_atts['type'].'</br>';
+            //$Content = 'Type: '.$widged_atts['type'].'</br>';
             switch ($widged_atts['type']) {
 
                 case 'button':
-                    $Content .= '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
+                    //$Content .= '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>';
+                    return $m->render('button', $dcWidget);
                     break;
                 case 'oplayers':
-                    $Content .= $dcWidget->presence_count;
+                    //$Content .= $dcWidget->presence_count;
+                    return $m->render('oplayers', $dcWidget);
                     break;
                 case 'list':
-                    $Content .= dfwpmakeList($dcWidget->members); 
+                    //$Content .= dfwpmakeList($dcWidget->members); 
+                    return $m->render('list', $dcWidget);
                     break;
                 case 'joinlist':
-                    $Content .= '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>'.dfwpmakeList($dcWidget->members);
+                    //$Content .= '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>'.dfwpmakeList($dcWidget->members);
+                    return $m->render('joinlist', $dcWidget);
                     break;
                 default:
-                    $Content .= "No type Defined!";
+                    //$Content .= "No type Defined!";
+                    return "No type Defined!";
             }
         }
     }else{
-        $Content .= "Error, no data Set!!";
+        //$Content .= "Error, no data Set!!";
+        return "Error, no data Set!!";
     }
-    return '<div class="dfwp">'.$Content.'</div>';
+    //return '<div class="dfwp">'.$Content.'</div>';
 }
 
 // > register shorcodes
