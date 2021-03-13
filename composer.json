@@ -1,0 +1,6 @@
+{
+    "name": "ned_tom/dcfwp",
+    "require": {
+        "mustache/mustache": "^2.13"
+    }
+}
