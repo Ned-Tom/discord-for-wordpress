@@ -1,6 +1,33 @@
 /* Base styling for the plugin */
 
+
+$blurple : #7289DA;
+$blurpleHover : #8EA1E1;
+$greyple : #99AAB5;
+
+$gray : #2C2F33;
+$darkGray : #23272A;
+$black : #000;
+$white : #fff;
+
+
 .dfwp{
     float: left;
     width: 100%;
+}
+
+.dfwpBtn{
+    display: block;
+    background-color: $blurple;
+    color: $white;
+    border-radius: 28px;
+    font-size: 18px;
+    padding: 14px 32px;
+    transition: 0.3s;
+    text-decoration: none;
+    text-align: center;
+    &:hover{
+        color: $white;
+        background-color: $blurpleHover;
+    }
 }
