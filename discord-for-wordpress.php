@@ -14,12 +14,9 @@ function dfwpconf($funcdata){
             dirname(__FILE__).'/dfwp-conf.php'
     )){
         $conf = include(dirname(__FILE__).'/dfwp-conf.php');
-        //$conf['apisrv'] = 'https://discord.com';
-        //die($conf['apisrv']);
     }else{
-        //$conf = array('apisrv' => 'https://discord.com');
-        //die('Missing config');
-        $conf['apisrv'] = 'https://discord.com';
+        $conf = array('apisrv' => 'https://discord.com');
+        //$conf['apisrv'] = 'https://discord.com';
     }
 
     //if($funcdata == 'apisrv'){
@@ -43,7 +40,6 @@ function testmeeeee(){
 };
 
 function dfwpmakeList($data){
-    //$userList = $dcWidget->members;
     $output = "<ul>";
     foreach ($data as $value) {
         $output .= '<li>'.$value->username.'</li>';
@@ -53,7 +49,6 @@ function dfwpmakeList($data){
 }
 
 function dfwpShortCode($atts = [], $content = null, $tag = '') {
-    //$conf['apisrv'] = 'https://discord.com';
     // normalize attribute keys, lowercase
     $atts = array_change_key_case((array)$atts, CASE_LOWER);
 
@@ -64,30 +59,22 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
         'skin' => 'basic'
     ], $atts, $tag);
 
-    // proces discord data // for production use : https://discord.com
-    //$apisrv = 'http://localhost'; // for development purpes, change to proxy.
-    //$apisrv = $conf['apisrv'];
-    //$apisrv = dfwpconf('apisrv');
-
+    // proces discord data
     try {
         $dcWidget = json_decode(
-            //file_get_contents($apisrv.'/api/guilds/'.$widged_atts['id'].'/widget.json')
             file_get_contents(dfwpconf('apisrv').'/api/guilds/'.$widged_atts['id'].'/widget.json')
         );        
     } catch (Exception $e) {
-        //echo 'Caught exception: ',  $e->getMessage(), "\n";
         $dcWidget = "nodata";
         die('no widget data!');
     }
 
-    //$Content = json_encode($dcWidget);
-
+    // generate selected widget
     if($dcWidget != NULL){
         if($dcWidget == "nodata"){
             $Content = "Can't Read widget data";
         }else{
             $Content = 'Type: '.$widged_atts['type'].'</br>';
-
             switch ($widged_atts['type']) {
 
                 case 'button':
@@ -98,26 +85,20 @@ function dfwpShortCode($atts = [], $content = null, $tag = '') {
                     break;
                 case 'list':
                     $Content .= dfwpmakeList($dcWidget->members); 
-                    //$Content .= 'test';
                     break;
                 case 'joinlist':
                     $Content .= '<a href="'.$dcWidget->instant_invite.'">Join '.$dcWidget->name.'</a>'.dfwpmakeList($dcWidget->members);
-                    //$Content .= testmeeeee();
                     break;
                 default:
                     $Content .= "No type Defined!";
             }
-
-
         }
     }else{
         $Content .= "Error, no data Set!!";
     }
-
     return '<div class="dfwp">'.$Content.'</div>';
 }
 
 // > register shorcodes
 add_shortcode('dfwp', 'dfwpShortCode');
-
 ?>
