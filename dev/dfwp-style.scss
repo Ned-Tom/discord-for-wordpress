@@ -12,6 +12,10 @@ $white : #fff;
 
 $listbg : #1E2124;
 
+$green : #43b581;
+$orange : #faa61a;
+$red : red;
+
 .dfwp{
     float: left;
     width: 100%;
@@ -21,7 +25,7 @@ $listbg : #1E2124;
     display: block;
     background-color: $blurple;
     color: $white;
-    border-radius: 28px;
+    border-radius: 50px;
     font-size: 18px;
     padding: 14px 32px;
     transition: 0.3s;
@@ -39,23 +43,24 @@ $listbg : #1E2124;
     border-radius: 3px;
     overflow: hidden;
     color: $white;
-
-    min-height: 300px;
-
-
+    min-height: 250px;
     background-size: 200px 180px,110px 130px;
     background-position: 0 100%,100% 100%;
     background-repeat: no-repeat,no-repeat;
-
-
-
-
     .dfwptop{
+        position: relative;
         padding: 14px 16px 0 16px;
         width: 100%;
         background-color: $blurple;
         img{
             height: 32px;
+        }
+        .dfwptopstate{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 16px;
+            line-height:inherit;
         }
     }
     ul{
@@ -82,11 +87,17 @@ $listbg : #1E2124;
                     right: 0;
                     bottom: 0;
                     border-radius: 50%;
-                    border: 1px solid white;
+                    //border: 1px solid white;
                     width: 10px;
                     height: 10px;
                     &.online{
-                        background-color: green;
+                        background-color: $green;
+                    }
+                    &.away{
+                        background-color: $orange;
+                    }
+                    &.bussy{
+                        background-color: $red;
                     }
                 } 
             }            
@@ -117,6 +128,51 @@ $listbg : #1E2124;
             color: white;
             text-decoration: none;
             border-radius: 3px;
+        }
+    }
+}
+
+.dfwpbanner{
+    width: 100%;
+    height: 74px;
+    position: relative;
+    line-height: inherit;
+
+    img{
+        height: 64px;
+        width: 64px;
+        position: absolute;
+        left: 5px;
+        top: 5px;
+    }
+    p{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 50%;
+        margin-bottom: -10px;
+        text-align: center;
+        height: 20px;
+        line-height: 20px;
+    }
+    a{
+        position: absolute;
+        display: block;
+        color: white;
+        padding: 0 32px;
+        border-radius: 50px;
+        right: 16px;
+        bottom: 50%;
+        margin-bottom: -21px;
+        height: 42px;
+        line-height: 42px;
+        background-color: $blurple;
+        transition: 0.3s;
+        text-decoration: none;
+        text-align: center;
+        &:hover{
+            color: $white;
+            background-color: $blurpleHover;
         }
     }
 }
