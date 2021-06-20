@@ -2,6 +2,9 @@
 Discord Integration for WordPress
 > Unofficial widget but whit respect for the discord guidelines
 
+## Support me
+[![preview](buymeacoffee.png)](https://www.buymeacoffee.com/nedtom)
+
 ## Usage
 - Instal and activate plugin
 - add shotcode in text.
